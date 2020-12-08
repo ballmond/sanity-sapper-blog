@@ -1,6 +1,8 @@
+import path from "path";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import commonjs from "@rollup/plugin-commonjs";
+import url from "@rollup/plugin-url";
 import svelte from "rollup-plugin-svelte";
 import babel from "rollup-plugin-babel";
 import { terser } from "rollup-plugin-terser";
@@ -19,6 +21,7 @@ const onwarn = (warning, onwarn) =>
   onwarn(warning);
 const dedupe = ["svelte"];
 
+console.log(path.resolve(__dirname, "src/node_modules/images"));
 export default {
   client: {
     input: config.client.input(),
@@ -32,6 +35,10 @@ export default {
         dev,
         hydratable: true,
         emitCss: true,
+      }),
+      url({
+        sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+        publicPath: "/client/",
       }),
       resolve({
         browser: true,
@@ -86,6 +93,11 @@ export default {
         generate: "ssr",
         hydratable: true,
         dev,
+      }),
+      url({
+        sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+        publicPath: "/client/",
+        emitFiles: false, // already emitted by client build
       }),
       resolve({
         dedupe: ["svelte"],
