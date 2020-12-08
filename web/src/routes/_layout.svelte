@@ -1,6 +1,6 @@
 <script>
 	import Nav from '../components/Nav.svelte';
-	import heroImg from 'images/gbcbb.jpg';
+	import heroImg from '../../static/gbcbb.jpg'
 
 	export let segment;
 </script>
