@@ -1,20 +1,18 @@
 <script context="module">
-	import client from '../sanityClient'
-	  export function preload({ params, query }) {
-	  return client.fetch('*[_type == "post" && defined(slug.current) && publishedAt < now()]|order(publishedAt desc)').then(posts => {
-			  console.log(JSON.stringify(posts, null, 2))
+	import client from '../sanityClient';
+	import groq from 'groq';
+	export function preload({ params, query }) {
+		return client.fetch(groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]{...,   "categories": categories[]->{title}}|order(publishedAt desc)`).then(posts => {
 			  return { posts };
 		  }).catch(err => this.error(500, err));
-	  }
+		}
 </script>
+
 <script>
-	import Post from "../components/Post.svelte";
+	import PostPreview from "../components/PostPreview.svelte";
 
 	export let posts;
 
-	function formatDate(date) {
-	  return new Date(date).toLocaleDateString()
-	}
 </script>
 	
 <style>
@@ -71,11 +69,6 @@
 	/* .container:nth-child(even) {
 		background: var(--grey);
 	} */
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-		grid-gap: 2rem;
-	}
 </style>
 
 <svelte:head>
@@ -121,16 +114,24 @@
 		</div>
 	</div>
 
-
 	<div class="container">
 		<div class="content">
-			<h2>Recent posts</h2>
-			<div class="grid">
-				{#each posts as post}
-					<Post preview=true {...post}/>
-				{/each}
-			</div>
+			<h2>Upcoming Events</h2>
+			<PostPreview category="Event" {posts}/>
 		</div>
 	</div>
 
+	<div class="container">
+		<div class="content">
+			<h2>Latest Sermons</h2>
+			<PostPreview category="Sermon" {posts}/>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="content">
+			<h2>Latest News</h2>
+			<PostPreview category="Newsletter" {posts}/>
+		</div>
+	</div>	
 </div>

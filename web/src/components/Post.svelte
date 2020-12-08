@@ -1,20 +1,3 @@
-<script context="module">
-	// the (optional) preload function takes a
-	// `{ path, params, query }` object and turns it into
-	// the data we need to render the page
-	export async function preload(page, session) {
-		// the `slug` parameter is available because this file
-		// is called [slug].svelte
-		const { slug } = page.params;
-        console.log(JSON.stringify(page.params))
-		// `this.fetch` is a wrapper around `fetch` that allows
-		// you to make credentialled requests on both
-		// server and client
-
-		return { slug };
-	}
-</script>
-
 <script>
     export let preview = false;
     export let slug = {}
@@ -22,10 +5,19 @@
     export let excerpt;
     export let authors = [];
     export let publishedAt;
+    export let videoUrl;
+    export let audioUrl;
 
 	function formatDate(date) {
 	  return new Date(date).toLocaleDateString()
-	}
+    }
+    
+    import getYouTubeID from 'get-youtube-id';
+
+    function getYoutubeID(url) {
+        return getYouTubeID(url);
+    }
+
 </script>
 
 <style>
@@ -43,6 +35,21 @@
     .content:hover {
         opacity: 1;
     }
+	/* clearfix */
+	ul::after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+	li {
+		display: block;
+		float: left;
+        padding-right: 0.5rem;
+	}
 </style>
 
 <svelte:head>
@@ -58,6 +65,16 @@
             <h3>{excerpt.text}</h3>
             <p>Posted {formatDate(publishedAt)}</p>
             <p>By {authors.join(', ')}</p>
+            <div class="media">
+                <ul>
+                    {#if videoUrl}
+                        <li><a href="{videoUrl}" target="_blank">Watch</a></li>
+                    {/if}
+                    {#if audioUrl}
+                        <p><a href="{audioUrl}" target="_blank">Listen</a></p>
+                    {/if}
+                </ul>
+            </div>
         </article>
     </div>
 </a>
