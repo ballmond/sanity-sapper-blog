@@ -25,11 +25,11 @@
 		/* Control the gradient stops with percentages here. */
 		/* background: linear-gradient(to bottom,rgba(0,0,0,0.65),rgba(0,0,0,0) 100%);  */
 		background: linear-gradient(to top,rgba(0,0,0,0.55),rgba(0,0,0,0) 50%); 
+		border-radius: 5px 5px;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
-		/* I don't want this too high because I only want to darken the top. */
 		height: 31.59vw; 
 	}
 	.hero {
@@ -42,7 +42,7 @@
 		position: relative; 
 		background-size: cover; 
 		box-shadow: 0 0 2px 2px;
-		border-radius: 15px 15px;
+		border-radius: 5px 5px;
 	}
 </style>
 
