@@ -1,6 +1,20 @@
-<script>
+<script context="module">
+	import client from '../sanityClient'
+	  export function preload({ params, query }) {
+	  return client.fetch('*[_type == "post" && defined(slug.current) && publishedAt < now()]|order(publishedAt desc)').then(posts => {
+		  	console.log({posts})
+			  return { posts };
+		  }).catch(err => this.error(500, err));
+	  }
 </script>
-
+<script>
+	export let posts;
+  
+	function formatDate(date) {
+	  return new Date(date).toLocaleDateString()
+	}
+</script>
+	
 <style>
 	h1,
 	h2,
@@ -91,6 +105,22 @@
 				<span>215-628-2077</span>
 			</p>
 			<iframe title="map of grace baptist church of blue bell" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.7681931536595!2d-75.25916498397085!3d40.14744697939734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6bc9a2818dc7d%3A0xd504d1564cd27c54!2sGrace%20Baptist%20Church-Blue%20Bell!5e0!3m2!1sen!2sus!4v1606764395635!5m2!1sen!2sus" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" width="600" height="450" frameborder="0"></iframe>
+		</article>
+	</div>
+
+
+	<div class="container">
+		<article>
+			<h1>Recent posts</h1>
+			<ul>
+			{#each posts as post}
+				<!-- we're using the non-standard `rel=prefetch` attribute to
+						tell Sapper to load the data for the page as soon as
+						the user hovers over the link or taps it, instead of
+						waiting for the 'click' event -->
+				<li><a rel='prefetch' href='blog/{post.slug.current}'>{post.title}</a> ({formatDate(post.publishedAt)})</li>
+			{/each}
+		</ul>
 		</article>
 	</div>
 </div>
