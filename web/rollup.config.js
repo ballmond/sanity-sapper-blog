@@ -21,7 +21,6 @@ const onwarn = (warning, onwarn) =>
   onwarn(warning);
 const dedupe = ["svelte"];
 
-console.log(path.resolve(__dirname, "src/node_modules/images"));
 export default {
   client: {
     input: config.client.input(),
@@ -37,7 +36,7 @@ export default {
         emitCss: true,
       }),
       url({
-        sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+        sourceDir: path.resolve(__dirname, "web/src/node_modules/images"),
         publicPath: "/client/",
       }),
       resolve({
@@ -95,7 +94,7 @@ export default {
         dev,
       }),
       url({
-        sourceDir: path.resolve(__dirname, "src/node_modules/images"),
+        sourceDir: path.resolve(__dirname, "web/src/node_modules/images"),
         publicPath: "/client/",
         emitFiles: false, // already emitted by client build
       }),
