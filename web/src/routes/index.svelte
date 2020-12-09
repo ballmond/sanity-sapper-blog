@@ -1,11 +1,36 @@
 <script context="module">
 	import client from '../sanityClient';
 	import groq from 'groq';
-	export function preload({ params, query }) {
-		return client.fetch(groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]{...,   "categories": categories[]->{title}}|order(publishedAt desc)`).then(posts => {
-			  return { posts };
-		  }).catch(err => this.error(500, err));
-		}
+	export async function preload({ params, query }) {
+		// return client.fetch(groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]{...,   "categories": categories[]->{title}}|order(publishedAt desc)`).then(posts => {
+		// 	  return { posts };
+		//   }).catch(err => this.error(500, err));
+
+		const filter = groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]`;
+		const projection = groq`{
+			slug,
+			title,
+			excerpt,
+			videoUrl,
+			audioUrl,
+			publishedAt,
+			"categories": categories[]->{title},
+			"authors": authors[]{
+				author->{name}
+			}
+		}`;
+		const order = groq`|order(publishedAt desc)`
+		const groqQuery = filter + projection + order;
+    	const posts = await client
+			  .fetch(groqQuery)
+			  .then(posts => {
+				//   console.log(JSON.stringify(posts, null, 2))
+				  return {posts}
+			  })
+			  .catch(err => this.error(500, err));
+
+		return posts
+	}
 </script>
 
 <script>

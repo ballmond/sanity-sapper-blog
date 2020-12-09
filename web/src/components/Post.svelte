@@ -18,6 +18,14 @@
         return getYouTubeID(url);
     }
 
+    function getAuthors(authors){
+        const authorList = []
+        authors.map(author => {
+            authorList.push(author.author.name)
+        })
+        return authorList.join(', ')
+    }
+
 </script>
 
 <style>
@@ -64,7 +72,7 @@
             <h1>{title}</h1>
             <h3>{excerpt.text}</h3>
             <p>Posted {formatDate(publishedAt)}</p>
-            <p>By {authors.join(', ')}</p>
+            <p>By {getAuthors(authors)}</p>
             <div class="media">
                 <ul>
                     {#if videoUrl}
