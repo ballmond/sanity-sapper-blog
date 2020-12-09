@@ -1,12 +1,13 @@
 <script context="module">
+  import groq from 'groq'
   import client from "../../sanityClient";
   import BlockContent from "@movingbrands/svelte-portable-text";
   import serializers from "../../components/serializers";
 
   export async function preload({ params }) {
     const { slug } = params;
-    const filter = '*[_type == "post" && slug.current == $slug][0]';
-    const projection = `{
+    const filter = groq`*[_type == "post" && slug.current == $slug][0]`;
+    const projection = groq`{
       ...,
       body[]{
         ...,
