@@ -1,9 +1,36 @@
+<script context="module">
+	import client from '../sanityClient';
+	import groq from 'groq';
+	export async function preload({ params, query }) {
+		const filter = groq`*[_id == "siteSettings"]`;
+		const projection = groq`{
+			...,
+			brandLogo->,
+			heroImage->,
+			person->
+		}[0]`;
+		const order = groq`|order(publishedAt desc)`
+		const groqQuery = filter + projection + order;
+    	const posts = await client
+			  .fetch(groqQuery)
+			  .then(posts => {
+				//   console.log(JSON.stringify(posts, null, 2))
+				  return {posts}
+			  })
+			  .catch(err => this.error(500, err));
+
+		return posts
+	}
+</script>
 <script>
-	import Nav from '../components/Nav.svelte';
-	import heroImg from '../../static/gbcbb.jpg'
+	import urlBuilder from '@sanity/image-url';
 	import Navbar from '../components/Navbar.svelte';
 
 	export let segment;
+	export let posts;
+
+	const urlFor = source => urlBuilder(client).image(source);
+
 </script>
 <!-- 
 <style>
@@ -48,7 +75,7 @@
 </style>
 
 {#if segment === undefined }
-<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({heroImg})"></div>
+<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({urlFor(posts.heroImage)})"></div>
 {/if}
 
 <Navbar />
