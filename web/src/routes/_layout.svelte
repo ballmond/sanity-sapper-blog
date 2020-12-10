@@ -1,6 +1,7 @@
 <script>
 	import Nav from '../components/Nav.svelte';
 	import heroImg from '../../static/gbcbb.jpg'
+	import Navbar from '../components/Navbar.svelte';
 
 	export let segment;
 </script>
@@ -50,7 +51,7 @@
 <div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({heroImg})"></div>
 {/if}
 
-<Nav {segment}/>
+<Navbar />
 
 
 <main>

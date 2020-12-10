@@ -19,7 +19,8 @@
     "get-youtube-id": "^1.0.1",
     "groq": "^0.147.8",
     "polka": "^1.0.0-next.11",
-    "sirv": "^1.0.10"
+    "sirv": "^1.0.10",
+    "sveltestrap": "^3.9.6"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
