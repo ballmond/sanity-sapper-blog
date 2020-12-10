@@ -1,4 +1,7 @@
 <script>
+    import BlockContent from "@movingbrands/svelte-portable-text";
+    import serializers from "./serializers";
+
     export let preview = false;
     export let slug = {}
     export let title;
@@ -70,7 +73,7 @@
         <div class="content">
         <article>
             <h1>{title}</h1>
-            <h3>{excerpt.text}</h3>
+            <h3><BlockContent blocks={excerpt} {serializers} /></h3>
             <p>Posted {formatDate(publishedAt)}</p>
             <p>By {getAuthors(authors)}</p>
             <div class="media">
