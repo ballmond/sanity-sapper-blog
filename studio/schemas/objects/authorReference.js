@@ -1,22 +1,22 @@
 export default {
   name: 'authorReference',
   type: 'object',
-  title: 'Author reference',
+  title: 'Person',
   fields: [
     {
-      name: 'author',
+      name: 'person',
       type: 'reference',
       to: [
         {
-          type: 'author'
-        }
-      ]
-    }
+          type: 'author',
+        },
+      ],
+    },
   ],
   preview: {
     select: {
-      title: 'author.name',
-      media: 'author.image.asset'
-    }
-  }
+      title: 'person.name',
+      media: 'person.image.asset',
+    },
+  },
 }

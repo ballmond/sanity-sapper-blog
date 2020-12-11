@@ -1,8 +1,8 @@
 import S from '@sanity/desk-tool/structure-builder'
-import { MdSettings } from "react-icons/md";
-import { MdPerson } from "react-icons/md";
+import { MdSettings } from 'react-icons/md'
+import { MdPerson } from 'react-icons/md'
 
-const hiddenDocTypes = listItem =>
+const hiddenDocTypes = (listItem) =>
   !['category', 'author', 'post', 'siteSettings'].includes(listItem.getId())
 
 export default () =>
@@ -12,18 +12,13 @@ export default () =>
       S.listItem()
         .title('Settings')
         .icon(MdSettings)
-        .child(
-          S.editor()
-            .id('siteSettings')
-            .schemaType('siteSettings')
-            .documentId('siteSettings')
-        ),
+        .child(S.editor().id('siteSettings').schemaType('siteSettings').documentId('siteSettings')),
       S.listItem()
         .title('Blog posts')
         .schemaType('post')
         .child(S.documentTypeList('post').title('Blog posts')),
       S.listItem()
-        .title('Authors')
+        .title('People')
         .icon(MdPerson)
         .schemaType('author')
         .child(S.documentTypeList('author').title('Authors')),
@@ -34,5 +29,5 @@ export default () =>
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above
-      ...S.documentTypeListItems().filter(hiddenDocTypes)
+      ...S.documentTypeListItems().filter(hiddenDocTypes),
     ])

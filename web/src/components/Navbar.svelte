@@ -33,12 +33,12 @@ import {
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav class="nav-link" caret>About Us</DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem tag="a" href="about-us/what-we-believe/">What We Believe</DropdownItem>                
-              <DropdownItem>Our Staff</DropdownItem>
-              <DropdownItem>Grace In The News</DropdownItem>
+              <DropdownItem tag="a" href="pages/custom/what-we-believe/">What We Believe</DropdownItem>                
+              <DropdownItem tag="a" href="pages/custom/our-staff/">Our Staff</DropdownItem>                
+              <DropdownItem tag="a" href="pages/custom/grace-in-the-news/">Grace In The News</DropdownItem>
               <DropdownItem divider />
               <DropdownItem>Directions</DropdownItem>
-              <DropdownItem>Contact Us</DropdownItem>
+              <DropdownItem tag="a" href="pages/custom/contact-us">Contact Us</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
           <UncontrolledDropdown nav inNavbar>
