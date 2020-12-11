@@ -1,0 +1,116 @@
+<script context="module">
+	import groq from 'groq'
+	import client from '../../../sanityClient'
+  
+	export async function preload({ params }) {
+	  const { slug } = params;
+	  const filter = groq`*[_type == "page" && custom && slug.current == $slug][0]`;
+	  const projection = groq`{
+		title,
+		"custom": coalesce(custom, false),
+		content[]{
+			...,
+			children[]{
+			...
+			}
+		},
+		people[]{
+			person->{
+			name,
+			role,
+			image,
+			bio[]{
+				...,
+				children[]{
+				...
+				}
+			}
+			}
+		}
+	  }`;
+	  const query = filter + projection;
+	  const post = await client
+      	.fetch(query, { slug })
+		.catch(err => this.error(500, err));
+	  return { post };
+	}
+  </script>
+
+  <script>
+	import Staff from "../../../components/Staff.svelte";
+	import BlockContent from "@movingbrands/svelte-portable-text";
+	import serializers from "../../../components/serializers";
+
+	export let post;
+  </script>
+  
+  
+  <style>
+	h1,
+	h2,
+	p {
+		font-family: system-ui, -apple-system, sans-serif;
+	}
+	h1 {
+		font-size: 2.666666666667em;
+		font-weight: 700;
+		margin: 0 0 0.5em;
+		text-transform: uppercase;
+		margin-top: 0.5em;
+  		line-height: 1.1;
+	}
+	h1:first-child {
+  		border-bottom: 2px dotted #666;
+	}
+	h2 {
+		font-size: 2.222222222222em; /* 40px /18 */
+		border-bottom: 1px solid #ddd;
+		margin: 1em 0 0.25em;
+		line-height: 1.1;
+		text-transform: uppercase;
+	}
+	p {
+  		/* max-width: 42em; */
+  		line-height: 1.5;
+	}
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		max-width: 100%;
+		margin: 1rem auto;
+		padding: 1rem;
+		font-size: 1.125em;
+	}
+	.content {
+		background: var(--grey);
+		/* margin-bottom: .25rem; */
+	}
+	.content {
+		max-width: 76rem;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+</style>
+
+
+<svelte:head>
+	<title>Grace Baptist Church of Blue Bell</title>
+</svelte:head>
+
+<div class="wrapper">
+	<div class="content">
+		<h1>{post.title}</h1>
+		{#if post.content}
+			<BlockContent blocks={post.content} {serializers} />
+		{/if}
+	</div>
+	{#if post.people}
+		{#each post.people as person}
+			<div class="content">
+				<Staff {...person.person}/>
+			</div>
+		{/each}
+	{/if}
+</div>
