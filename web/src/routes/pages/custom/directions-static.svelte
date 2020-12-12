@@ -1,8 +1,7 @@
 <script>
 	import Map from '../../../components/Map.svelte'
-
 	const mapsApi = process.env.GOOGLE_MAPS_API;
-	</script>
+</script>
 <style>
 	h1,
 	h2,
@@ -51,13 +50,6 @@
 	}
 </style>
 	
-	
-<svelte:head>
-	<script defer async
-	src="https://maps.googleapis.com/maps/api/js?key={mapsApi}&libraries=places">
-	</script>
-</svelte:head>
-
 <div class="wrapper">
 	<div class="content">
 		<h1>Our Location</h1>
