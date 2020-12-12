@@ -2,35 +2,36 @@
 	import client from '../sanityClient';
 	import groq from 'groq';
 	export async function preload({ params, query }) {
-		const filter = groq`*[_id == "siteSettings"]`;
+		const filter = groq`*[_id == "siteSettings"][0]`;
 		const projection = groq`{
 			...,
+			"placeId": map.placeId,
 			brandLogo->,
 			heroImage->,
 			person->
-		}[0]`;
+		}`;
 		const order = groq`|order(publishedAt desc)`
 		const groqQuery = filter + projection + order;
-    	const posts = await client
+		const siteSettings = await client
 			  .fetch(groqQuery)
-			  .then(posts => {
-				//   console.log(JSON.stringify(posts, null, 2))
-				  return {posts}
+			  .then(siteSettings => {
+				  return {siteSettings}
 			  })
 			  .catch(err => this.error(500, err));
-
-		return posts
+		return siteSettings
 	}
 </script>
 <script>
+	import { setContext } from 'svelte'
 	import urlBuilder from '@sanity/image-url';
 	import Navbar from '../components/Navbar.svelte';
 
 	export let segment;
-	export let posts;
+	export let siteSettings;
 
 	const urlFor = source => urlBuilder(client).image(source);
-
+	const mapsApi = process.env.GOOGLE_MAPS_API;
+	setContext('siteSettings', siteSettings)
 </script>
 <!-- 
 <style>
@@ -73,9 +74,15 @@
 		border-radius: 5px 5px;
 	}
 </style>
+<svelte:head>
+	<title>Grace Baptist Church of Blue Bell</title>
+	<script defer async
+	src="https://maps.googleapis.com/maps/api/js?key={mapsApi}&libraries=places">
+	</script>
+</svelte:head>
 
 {#if segment === undefined }
-<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({urlFor(posts.heroImage)})"></div>
+<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({urlFor(siteSettings.heroImage)})"></div>
 {/if}
 
 <Navbar />

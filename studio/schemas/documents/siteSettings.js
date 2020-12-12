@@ -42,5 +42,10 @@ export default {
       type: 'mainImage',
       title: 'Brand Logo',
     },
+    {
+      name: 'map',
+      type: 'map',
+      title: 'Google Map',
+    },
   ],
 }

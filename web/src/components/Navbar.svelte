@@ -37,7 +37,6 @@ import {
               <DropdownItem tag="a" href="pages/custom/our-staff/">Our Staff</DropdownItem>                
               <DropdownItem tag="a" href="pages/custom/grace-in-the-news/">Grace In The News</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem>Directions</DropdownItem>
               <DropdownItem tag="a" href="pages/custom/contact-us">Contact Us</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
