@@ -75,6 +75,7 @@
 	}
 </style>
 <svelte:head>
+	<link rel="icon" type="image/png" href="{urlFor(siteSettings.brandLogo)}" />
 	<title>Grace Baptist Church of Blue Bell</title>
 	<script defer async
 	src="https://maps.googleapis.com/maps/api/js?key={mapsApi}&libraries=places">
