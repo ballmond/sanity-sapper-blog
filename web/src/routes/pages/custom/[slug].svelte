@@ -87,7 +87,6 @@ import Map from "../../../components/Map.svelte";
 	.content {
 		background: var(--grey);
 		/* margin-bottom: .25rem; */
-		border: 1px solid red;
 	}
 	.content {
 		max-width: 76rem;
