@@ -8,6 +8,7 @@
 	  const projection = groq`{
 		title,
 		"custom": coalesce(custom, false),
+		map,
 		content[]{
 			...,
 			children[]{
@@ -40,6 +41,7 @@
 	import Staff from "../../../components/Staff.svelte";
 	import BlockContent from "@movingbrands/svelte-portable-text";
 	import serializers from "../../../components/serializers";
+import Map from "../../../components/Map.svelte";
 
 	export let post;
   </script>
@@ -85,6 +87,7 @@
 	.content {
 		background: var(--grey);
 		/* margin-bottom: .25rem; */
+		border: 1px solid red;
 	}
 	.content {
 		max-width: 76rem;
@@ -112,5 +115,10 @@
 				<Staff {...person.person}/>
 			</div>
 		{/each}
+	{/if}
+	{#if post.map}
+	  <div class="content">
+		<Map place_id = {post.map.placeId}/>
+	  </div>
 	{/if}
 </div>

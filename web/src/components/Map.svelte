@@ -67,10 +67,8 @@
 
 <style>
 	.full-screen {
-		/* width: 100vw; */
-        /* height: 100vh; */
         height: 450px;
-        width: 600px;
+        width: auto;
 	}
 </style>
 
