@@ -46,11 +46,14 @@
                 });
                 google.maps.event.addListener(marker, "click", function () {
                     infowindow.setContent(
-                    "<div><strong>" +
-                        place.name +
-                        "</strong><br>" +
-                        place.formatted_address +
-                        "</div>"
+                        "<div><h5><strong>" +
+                    place.name +
+                    "</strong></h5>" +
+                    "<h6>" +
+                    place.formatted_address +
+                    "</h6>" +
+                    `<h6><strong><a href=${href} target=_blank>Directions</a></strong></h6>` +
+                    "</div>"
                     );
                     infowindow.open(map, this);
                 });
@@ -64,10 +67,8 @@
 
 <style>
 	.full-screen {
-		/* width: 100vw; */
-        /* height: 100vh; */
         height: 450px;
-        width: 600px;
+        width: auto;
 	}
 </style>
 

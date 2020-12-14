@@ -38,10 +38,9 @@ export default {
       title: "Custom Page (Don't change unless you know what you are doing.)",
     },
     {
-      name: 'mapUrl',
-      title: 'Google Maps URL',
-      type: 'url',
-      description: 'Link to Google Maps',
+      name: 'map',
+      type: 'map',
+      title: 'Google Map',
     },
     {
       name: 'people',
