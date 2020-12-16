@@ -32,6 +32,15 @@
 	const urlFor = source => urlBuilder(client).image(source);
 	const mapsApi = process.env.GOOGLE_MAPS_API;
 	setContext('siteSettings', siteSettings)
+
+	const cloudinaryUrl = function(img) {
+		const myCloudId = process.env.CLOUDINARY_ID
+		const uploadedId = urlFor(img)
+		const res = `https://res.cloudinary.com/${myCloudId}/image/fetch/c_fill,w_1000,h_420,o_85/e_art:hokusai/e_oil_paint:75/${uploadedId}`;
+		return res
+	}
+
+	
 </script>
 <!-- 
 <style>
@@ -83,7 +92,8 @@
 </svelte:head>
 
 {#if segment === undefined }
-<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({urlFor(siteSettings.heroImage)})"></div>
+<!--<div class="hero" alt="hero image of grace baptist church of blue bell" style="--heroImg:url({urlFor(siteSettings.heroImage)})"></div>-->
+<img src="{cloudinaryUrl(siteSettings.heroImage)}" alt="" class="hero">
 {/if}
 
 <Navbar />
