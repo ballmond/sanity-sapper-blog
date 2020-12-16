@@ -35,6 +35,7 @@ export default {
         "process.env.GOOGLE_MAPS_API": JSON.stringify(
           process.env.GOOGLE_MAPS_API
         ),
+        "process.env.CLOUDINARY_ID": JSON.stringify(process.env.CLOUDINARY_ID),
       }),
       svelte({
         dev,
