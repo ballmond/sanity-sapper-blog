@@ -1,7 +1,5 @@
 <script>
-
 	let container;
-	let map;
 	let zoom = 16;
     let center = {lat: -34.397, lng: 150.644};
     export let place_id = "";
@@ -19,11 +17,10 @@
             fields: ["name", "formatted_address", "place_id", "geometry"],
         };
 
-        const infowindow = new google.maps.InfoWindow();
         const service = new google.maps.places.PlacesService(map);
         service.getDetails(request, (place, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-                console.log(JSON.stringify(place, null, 2))
+                // console.log(JSON.stringify(place, null, 2))
                 const base = "https://www.google.com/maps/dir/?api=1"
                 const dest = `destination=${encodeURIComponent(place.name)}`
                 const destPlace = `destination_place_id=${encodeURIComponent(place.place_id)}`
@@ -59,8 +56,7 @@
                 });
                 infowindow.open(map, marker);
             }
-            map.setCenter(place.geometry.location);
-            
+            map.setCenter(place.geometry.location);            
         });
     });
 </script>
