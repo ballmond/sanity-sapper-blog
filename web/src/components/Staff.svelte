@@ -1,5 +1,5 @@
 <script>
-  import client from "../sanityClient";
+    import client from "../sanityClient";
 	import BlockContent from "@movingbrands/svelte-portable-text";
 	import serializers from "./serializers"
 	import urlBuilder from '@sanity/image-url';
@@ -10,6 +10,14 @@
   export let image;
 
   const urlFor = source => urlBuilder(client).image(source);
+
+  const cloudinaryUrl = function(img) {
+		const myCloudId = process.env.CLOUDINARY_ID
+		const uploadedId = urlFor(img)
+		const res = `https://res.cloudinary.com/${myCloudId}/image/fetch/c_fill,w_240,h_300/e_shadow:50/${uploadedId}`;
+		return res
+  }
+
 </script>
 
 <style>
@@ -39,6 +47,6 @@
 <div class="content">
   <h2>{name}</h2>
   <h3>{role}</h3>
-  <img align="left" src={urlFor(image)} alt="altimage"/>
+  <img align="left" src={cloudinaryUrl(image)} alt="{image.alt}"/>
   <p><BlockContent blocks={bio} {serializers} /></p>
 </div>
