@@ -1,23 +1,12 @@
 <script>
-    import client from "../sanityClient";
 	import BlockContent from "@movingbrands/svelte-portable-text";
 	import serializers from "./serializers"
-	import urlBuilder from '@sanity/image-url';
+	import Headshot from "./Headshot.svelte";
 
-  export let name;
-  export let role;
-  export let bio;
-  export let image;
-
-  const urlFor = source => urlBuilder(client).image(source);
-
-  const cloudinaryUrl = function(img) {
-		const myCloudId = process.env.CLOUDINARY_ID
-		const uploadedId = urlFor(img)
-		const res = `https://res.cloudinary.com/${myCloudId}/image/fetch/c_fill,w_240,h_300/e_shadow:50/${uploadedId}`;
-		return res
-  }
-
+	export let name;
+	export let role;
+	export let bio;
+	export let image;
 </script>
 
 <style>
@@ -34,19 +23,27 @@
 		text-transform: uppercase;
 	}
 	p {
-  		/* max-width: 42em; */
   		line-height: 1.5;
 	}
-  img {
-    margin: 0 1rem;
-    width: 240px;
-    height: 300px;
-  }
+	.wrapper {
+		width: 100%;
+	}
+	.headshot {
+		float: left;
+		margin-right: 1rem;
+	}
+	.content {
+		float: none;
+	}
   </style>
 
-<div class="content">
+<div class="wrapper">
   <h2>{name}</h2>
   <h3>{role}</h3>
-  <img align="left" src={cloudinaryUrl(image)} alt="{image.alt}"/>
-  <p><BlockContent blocks={bio} {serializers} /></p>
+  <div class="headshot">
+    <Headshot {image}/>
+  </div>
+  <div class="content">
+    <p><BlockContent blocks={bio} {serializers} /></p>
+  </div>
 </div>

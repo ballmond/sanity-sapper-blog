@@ -33,14 +33,11 @@
 	import PostPreview from "../components/PostPreview.svelte";
 	import Map from '../components/Map.svelte'
 
-	const mapsApi = process.env.GOOGLE_MAPS_API;
 	const siteSettings = getContext('siteSettings')
 	export let posts;
-
 </script>
 	
 <style>
-
 	h1,
 	h2,
 	p {
@@ -65,7 +62,6 @@
 		text-transform: uppercase;
 	}
 	p {
-  		/* max-width: 42em; */
   		line-height: 1.5;
 	}
 	.wrapper {
@@ -77,28 +73,18 @@
 		padding: 1rem;
 		font-size: 1.125em;
 	}
-	iframe {
-  		border: none;
-  		width: 100%;
-	}
 	.container {
 		background: var(--grey);
-		/* margin-bottom: .25rem; */
 	}
 	.content {
 		max-width: 76rem;
 		margin-left: auto;
 		margin-right: auto;
 	}
-	/* .container:nth-child(even) {
-		background: var(--grey);
-	} */
 </style>
 
 <svelte:head>
-	<title>Grace Baptist Church of Blue Bell</title>
 </svelte:head>
-
 
 <div class="wrapper">
 	<div class="container">

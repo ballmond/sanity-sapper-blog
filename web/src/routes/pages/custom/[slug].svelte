@@ -41,16 +41,14 @@
 	import Staff from "../../../components/Staff.svelte";
 	import BlockContent from "@movingbrands/svelte-portable-text";
 	import serializers from "../../../components/serializers";
-import Map from "../../../components/Map.svelte";
+	import Map from "../../../components/Map.svelte";
 
 	export let post;
   </script>
   
   
   <style>
-	h1,
-	h2,
-	p {
+	h1 {
 		font-family: system-ui, -apple-system, sans-serif;
 	}
 	h1 {
@@ -64,17 +62,6 @@ import Map from "../../../components/Map.svelte";
 	h1:first-child {
   		border-bottom: 2px dotted #666;
 	}
-	h2 {
-		font-size: 2.222222222222em; /* 40px /18 */
-		border-bottom: 1px solid #ddd;
-		margin: 1em 0 0.25em;
-		line-height: 1.1;
-		text-transform: uppercase;
-	}
-	p {
-  		/* max-width: 42em; */
-  		line-height: 1.5;
-	}
 	.wrapper {
 		display: flex;
 		flex-direction: column;
@@ -86,7 +73,6 @@ import Map from "../../../components/Map.svelte";
 	}
 	.content {
 		background: var(--grey);
-		/* margin-bottom: .25rem; */
 	}
 	.content {
 		max-width: 76rem;
@@ -95,11 +81,6 @@ import Map from "../../../components/Map.svelte";
 		width: 100%;
 	}
 </style>
-
-
-<svelte:head>
-	<title>Grace Baptist Church of Blue Bell</title>
-</svelte:head>
 
 <div class="wrapper">
 	<div class="content">

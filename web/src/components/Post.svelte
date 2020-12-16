@@ -63,10 +63,6 @@
 	}
 </style>
 
-<svelte:head>
-	<title>Grace Baptist Church of Blue Bell</title>
-</svelte:head>
-
 {#if preview}
 <div class="wrapper">
     <a rel="prefetch" href="blog/{slug.current}">
