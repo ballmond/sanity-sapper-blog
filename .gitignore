@@ -10,7 +10,7 @@
 # env files
 .env
 .env.*
-web/.env
-web/.env.*
-studio/.env
-studio/.env.*
+/web/.env
+/web/.env.*
+/studio/.env
+/studio/.env.*
