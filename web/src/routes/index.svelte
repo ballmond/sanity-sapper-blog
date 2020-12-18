@@ -1,7 +1,13 @@
 <script context="module">
 	import client from '../sanityClient';
 	import groq from 'groq';
+
 	export async function preload({ params, query }) {
+		const data = await this.fetch(
+      "https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
+	).then((x) => x.json());
+	console.log(data.id)
+
 		const filter = groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]`;
 		const projection = groq`{
 			slug,
@@ -35,6 +41,34 @@
 
 	const siteSettings = getContext('siteSettings')
 	export let posts;
+
+	let email = "";
+	let fname = "";
+	let lname = "";
+
+	async function onClick(event) {
+		// const data = await fetch(
+      	// 	"https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
+		// 	).then((x) => x.json());
+		// console.log(data.id)
+
+		let user = {
+			email: email,
+			fname: fname,
+			lname: lname
+		};
+		console.log(user)
+
+		response = await fetch("https://dawn-tqa-staging.begin.app/mailchimp/addListMember/c6ace2212d", {
+			method: 'POST',
+			headers: {
+				'access-control-allow-origin': '*',
+				'Content-Type': 'application/json;charset=utf-8'
+		},
+			body: JSON.stringify(user)
+		});
+		console.log(response)
+	}
 </script>
 	
 <style>
@@ -81,10 +115,34 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	#mc_embed_signup {
+		background: #fff;
+		clear: left;
+		font: 14px Helvetica,Arial,sans-serif;
+	}
+	#mc_embed_signup form {
+		display: block;
+		position: relative;
+		text-align: left;
+		padding: 10px 0 10px 3%;
+	}	
+	#mc_embed_signup .mc-field-group {
+		clear: left;
+		position: relative;
+		width: 96%;
+		padding-bottom: 3%;
+		min-height: 50px;
+	}
+	#mc_embed_signup div#mce-responses {
+		float: left;
+		top: -1.4em;
+		padding: 0em .5em 0em .5em;
+		overflow: hidden;
+		width: 90%;
+		margin: 0 5%;
+		clear: both;
+	}	
 </style>
-
-<svelte:head>
-</svelte:head>
 
 <div class="wrapper">
 	<div class="container">
@@ -144,5 +202,50 @@
 			<h2>Latest News</h2>
 			<PostPreview category="Newsletter" {posts}/>
 		</div>
-	</div>	
+	</div>
+
+	<div class="container">
+		<div class="content">
+			<h2>Newsletter</h2>
+			<!-- Begin Mailchimp Signup Form -->
+			<!--<link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">-->
+			<!--
+			<style type="text/css">
+				#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+				/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+				   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+			</style>
+			-->
+			<div id="mc_embed_signup">
+			<!--<form action="https://gmail.us7.list-manage.com/subscribe/post?u=9ba083eded6d2e2dc934dd2aa&amp;id=c6ace2212d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>-->
+			<form  on:click|preventDefault id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+				<div id="mc_embed_signup_scroll">
+				<h2>Subscribe</h2>
+			<div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+			<div class="mc-field-group">
+				<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+			</label>
+				<input bind:value={email} type="email" name="EMAIL" class="required email" id="mce-EMAIL">
+			</div>
+			<div class="mc-field-group">
+				<label for="mce-FNAME">First Name </label>
+				<input type="text" bind:value={fname} name="FNAME" class="" id="mce-FNAME">
+			</div>
+			<div class="mc-field-group">
+				<label for="mce-LNAME">Last Name </label>
+				<input type="text"  bind:value={lname} name="LNAME" class="" id="mce-LNAME">
+			</div>
+				<div id="mce-responses" class="clear">
+					<div class="response" id="mce-error-response" style="display:none"></div>
+					<div class="response" id="mce-success-response" style="display:none"></div>
+				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_9ba083eded6d2e2dc934dd2aa_c6ace2212d" tabindex="-1" value=""></div>
+				<div class="clear"><input on:click={onClick} type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+				</div>
+			</form>
+			</div>
+			<!--<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>-->
+			<!--End mc_embed_signup-->
+		</div>
+	</div>
 </div>
