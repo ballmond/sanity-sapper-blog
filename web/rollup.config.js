@@ -36,6 +36,7 @@ export default {
           process.env.GOOGLE_MAPS_API
         ),
         "process.env.CLOUDINARY_ID": JSON.stringify(process.env.CLOUDINARY_ID),
+        "process.env.RECAPTCHA_API": JSON.stringify(process.env.RECAPTCHA_API),
       }),
       svelte({
         dev,

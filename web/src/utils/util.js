@@ -2,6 +2,7 @@ import client from "../sanityClient";
 import urlBuilder from "@sanity/image-url";
 
 export const mapsApi = process.env.GOOGLE_MAPS_API;
+export const recaptchaApi = process.env.RECAPTCHA_API;
 
 export const urlFor = (source) => urlBuilder(client).image(source);
 
