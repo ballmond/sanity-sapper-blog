@@ -155,5 +155,4 @@
 		  <Newsletter/>
 		</div>
 	</div>
-
 </div>
