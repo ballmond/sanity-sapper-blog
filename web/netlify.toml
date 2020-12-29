@@ -21,3 +21,6 @@
   publish = "__sapper__/export"
   command = "npm run build"
 #  environment = { ACCESS_TOKEN = "super secret", NODE_VERSION = "8.0.1" }
+
+[[plugins]]
+package = "netlify-plugin-contextual-env"
