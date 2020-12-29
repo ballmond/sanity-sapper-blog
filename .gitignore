@@ -16,5 +16,3 @@
 /studio/.env.*
 
 # netlify
-netlify.toml
-./web/netlify.toml
