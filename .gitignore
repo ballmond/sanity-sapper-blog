@@ -6,3 +6,15 @@
 
 # lerna files
 /lerna-debug.log
+
+# env files
+.env
+.env.*
+/web/.env
+/web/.env.*
+/studio/.env
+/studio/.env.*
+
+# netlify
+netlify.toml
+./web/netlify.toml

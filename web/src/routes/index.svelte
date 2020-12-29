@@ -1,10 +1,11 @@
 <script context="module">
 	import client from '../sanityClient';
 	import groq from 'groq';
+
 	export async function preload({ params, query }) {
-		// return client.fetch(groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]{...,   "categories": categories[]->{title}}|order(publishedAt desc)`).then(posts => {
-		// 	  return { posts };
-		//   }).catch(err => this.error(500, err));
+		const data = await this.fetch(
+      "https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
+	).then((x) => x.json());
 
 		const filter = groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]`;
 		const projection = groq`{
@@ -24,7 +25,6 @@
     	const posts = await client
 			  .fetch(groqQuery)
 			  .then(posts => {
-				//   console.log(JSON.stringify(posts, null, 2))
 				  return {posts}
 			  })
 			  .catch(err => this.error(500, err));
@@ -34,14 +34,16 @@
 </script>
 
 <script>
+	import { getContext } from 'svelte'
 	import PostPreview from "../components/PostPreview.svelte";
+	import Map from '../components/Map.svelte'
+	import Newsletter from '../components/Newsletter.svelte';
 
+	const siteSettings = getContext('siteSettings')
 	export let posts;
-
 </script>
-	
-<style>
 
+<style>
 	h1,
 	h2,
 	p {
@@ -66,7 +68,6 @@
 		text-transform: uppercase;
 	}
 	p {
-  		/* max-width: 42em; */
   		line-height: 1.5;
 	}
 	.wrapper {
@@ -78,27 +79,15 @@
 		padding: 1rem;
 		font-size: 1.125em;
 	}
-	iframe {
-  		border: none;
-  		width: 100%;
-	}
 	.container {
 		background: var(--grey);
-		/* margin-bottom: .25rem; */
 	}
 	.content {
 		max-width: 76rem;
 		margin-left: auto;
 		margin-right: auto;
 	}
-	/* .container:nth-child(even) {
-		background: var(--grey);
-	} */
 </style>
-
-<svelte:head>
-	<title>Grace Baptist Church of Blue Bell</title>
-</svelte:head>
 
 <div class="wrapper">
 	<div class="container">
@@ -135,7 +124,7 @@
 				<span>Blue Bell, PA 19422</span><br>
 				<span>215-628-2077</span>
 			</p>
-			<iframe title="map of grace baptist church of blue bell" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3049.7681931536595!2d-75.25916498397085!3d40.14744697939734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6bc9a2818dc7d%3A0xd504d1564cd27c54!2sGrace%20Baptist%20Church-Blue%20Bell!5e0!3m2!1sen!2sus!4v1606764395635!5m2!1sen!2sus" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" width="600" height="450" frameborder="0"></iframe>
+			<Map place_id = {siteSettings.placeId}/>
 		</div>
 	</div>
 
@@ -158,5 +147,12 @@
 			<h2>Latest News</h2>
 			<PostPreview category="Newsletter" {posts}/>
 		</div>
-	</div>	
+	</div>
+
+	<div class="container">
+		<div class="content">
+		  <h2>Newsletter</h2>
+		  <Newsletter/>
+		</div>
+	</div>
 </div>

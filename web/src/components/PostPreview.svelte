@@ -31,10 +31,6 @@
 	}
 </style>
 
-<svelte:head>
-	<title>Grace Baptist Church of Blue Bell</title>
-</svelte:head>
-
 <div class="grid">
     {#each getPosts(category) as post}
         <Post preview=true {...post}/>

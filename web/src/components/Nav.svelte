@@ -46,6 +46,11 @@
 		padding: 1em 0.5em;
 		display: block;
 	}
+
+	.hide {
+    max-height: 0 !important;
+}
+
 </style>
 
 <nav>

@@ -9,6 +9,9 @@ import { terser } from "rollup-plugin-terser";
 import json from "@rollup/plugin-json";
 import config from "sapper/config/rollup.js";
 import pkg from "./package.json";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const mode = process.env.NODE_ENV;
 const dev = mode === "development";
@@ -29,6 +32,11 @@ export default {
       replace({
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
+        "process.env.GOOGLE_MAPS_API": JSON.stringify(
+          process.env.GOOGLE_MAPS_API
+        ),
+        "process.env.CLOUDINARY_ID": JSON.stringify(process.env.CLOUDINARY_ID),
+        "process.env.RECAPTCHA_API": JSON.stringify(process.env.RECAPTCHA_API),
       }),
       svelte({
         dev,

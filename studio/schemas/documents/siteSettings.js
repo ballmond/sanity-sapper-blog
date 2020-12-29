@@ -7,30 +7,45 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Title'
+      title: 'Title',
     },
     {
       name: 'description',
       type: 'text',
       title: 'Description',
-      description: 'Describe your blog for search engines and social media.'
+      description: 'Describe your blog for search engines and social media.',
     },
     {
       name: 'keywords',
       type: 'array',
       title: 'Keywords',
       description: 'Add keywords that describes your blog.',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
-        layout: 'tags'
-      }
+        layout: 'tags',
+      },
     },
     {
       name: 'author',
       type: 'reference',
       description: 'Publish an author and set a reference to them here.',
       title: 'Author',
-      to: [{type: 'author'}]
-    }
-  ]
+      to: [{ type: 'author' }],
+    },
+    {
+      name: 'heroImage',
+      type: 'mainImage',
+      title: 'Hero Image',
+    },
+    {
+      name: 'brandLogo',
+      type: 'mainImage',
+      title: 'Brand Logo',
+    },
+    {
+      name: 'map',
+      type: 'map',
+      title: 'Google Map',
+    },
+  ],
 }
