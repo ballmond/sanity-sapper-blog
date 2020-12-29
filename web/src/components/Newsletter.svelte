@@ -18,6 +18,7 @@
   		window.onloadCallback = null;
 	})
 	*/
+
 	var onloadCallback = function() {
 		grecaptcha.render('captcha', {
           'sitekey' : recaptchaApi
