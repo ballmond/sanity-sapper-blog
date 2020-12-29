@@ -1,13 +1,11 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition'
-	import { recaptchaApi } from '../utils/util'
-	import { apiEndpoint } from '../utils/util'
+	import { apiEndpoint, recaptchaApi } from '../utils/util'
 
 	let email = "";
 	let subscribed = false;
     let showErr = false;
-    let showSuccess = false;
     let msg = "";
 
 	onMount(() => {

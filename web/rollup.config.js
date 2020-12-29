@@ -38,6 +38,7 @@ export default {
         "process.env.CLOUDINARY_ID": JSON.stringify(process.env.CLOUDINARY_ID),
         "process.env.RECAPTCHA_API": JSON.stringify(process.env.RECAPTCHA_API),
         "process.env.API_ENDPOINT": JSON.stringify(process.env.API_ENDPOINT),
+        "process.env.STRIPE_PK": JSON.stringify(process.env.STRIPE_PK),
       }),
       svelte({
         dev,

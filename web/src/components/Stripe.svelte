@@ -1,5 +1,6 @@
 <script>
     import {loadStripe} from '@stripe/stripe-js';
+    import { apiEndpoint, stripePK } from '../utils/util'
     import { onMount } from 'svelte';
 
     let stripe = null;
@@ -9,7 +10,7 @@
     let amount
 
     onMount(async () => {
-        stripe = await loadStripe('pk_test_51HuTEgJLDlMaRgpBKghNLr9ZJpt8FTJZd0e7UXbeVieiRYsXGenHZUO5sdG9yZq0KFPWH0ApN13d5SePy6LjkAhT00XKeZSJCI');
+        stripe = await loadStripe(stripePK);
 
         var elements = await stripe.elements();
         card = await elements.create('card');
@@ -57,8 +58,7 @@
     }
 
     async function getPaymentIntent(){
-        const baseUrl = 'http://localhost:3332'
-        var response = await fetch(`${baseUrl}/payment?name=${fullname}&email=${email}&amount=${amount}`, {
+        var response = await fetch(`${apiEndpoint}payment?name=${fullname}&email=${email}&amount=${amount}`, {
             method: 'POST'})
         .then(function(response) {
             return response.json();
