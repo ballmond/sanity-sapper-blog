@@ -77,7 +77,8 @@
 	}
 
 	async function handleSubmit(event) {
-		const captcha = await validateCaptcha()
+		// const captcha = await validateCaptcha()
+		const captcha = true
 		if(!captcha) {
 			showErr = true
 			msg = `Please verify you are not a robot.`
