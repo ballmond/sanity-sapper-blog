@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition'
 	import { recaptchaApi } from '../utils/util'
+	import { apiEndpoint } from '../utils/util'
 
 	let email = "";
 	let subscribed = false;
@@ -27,9 +28,9 @@
 		if (email === '') {
 			return false
 		}
-		let baseUrl = "https://dawn-tqa-staging.begin.app"
+
 		let valid = false
-		await fetch(`${baseUrl}/validate/email/${email}`)
+		await fetch(`${apiEndpoint}validate/email/${email}`)
 		.then((response) => response.json().then(res => ({status:response.status, data:res})))
         .then(res => {
             if(res.status == 200){
@@ -53,8 +54,7 @@
 			return false;
 		}
 
-		const baseUrl = "https://dawn-tqa-staging.begin.app"
-		const serverResponse = await fetch(`${baseUrl}/validate/recaptcha?response=${response}`, {
+		const serverResponse = await fetch(`${apiEndpoint}validate/recaptcha?response=${response}`, {
 			method: 'POST'})
 			.then(res => res.json())
 			.catch(err => {
@@ -65,8 +65,7 @@
 	}
 	
 	async function addSubscriber(){
-		const baseUrl = "https://dawn-tqa-staging.begin.app"
-		const response = await fetch(`${baseUrl}/mailchimp/addListMember/c6ace2212d?email=${email}`, {
+		const response = await fetch(`${apiEndpoint}mailchimp/addListMember/c6ace2212d?email=${email}`, {
 			method: 'POST'
         }).then((response) => response.json().then(res => ({status:response.status, data:res})))
         .catch(err => {

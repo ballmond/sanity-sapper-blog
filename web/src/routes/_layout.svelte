@@ -29,7 +29,7 @@
 	export let segment;
 	export let siteSettings;
 
-	setContext('siteSettings', siteSettings)	
+	setContext('siteSettings', siteSettings)
 	function getHero(){
 		const params = {
 			width: 1000,

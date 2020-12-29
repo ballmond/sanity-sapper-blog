@@ -2,11 +2,10 @@
 	import client from '../sanityClient';
 	import groq from 'groq';
 
-	export async function preload({ params, query }) {
-		const data = await this.fetch(
-      "https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
-	).then((x) => x.json());
-
+	export async function preload({ params, query }) {		
+	// 	const data = await this.fetch(
+    //   `${apiEndpoint}mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell`
+	// ).then((x) => x.json());
 		const filter = groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]`;
 		const projection = groq`{
 			slug,
