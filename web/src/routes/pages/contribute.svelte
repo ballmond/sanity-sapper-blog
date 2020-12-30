@@ -3,7 +3,9 @@ import Stripe from "../../components/Stripe.svelte";
 
 </script>
 <style>
-	h1 {
+	h1,
+	h2,
+	p {
 		font-family: system-ui, -apple-system, sans-serif;
 	}
 	h1 {
@@ -13,6 +15,13 @@ import Stripe from "../../components/Stripe.svelte";
 		text-transform: uppercase;
 		margin-top: 0.5em;
   		line-height: 1.1;
+	}
+	h2 {
+		font-size: 2.222222222222em; /* 40px /18 */
+		border-bottom: 1px solid #ddd;
+		margin: 1em 0 0.25em;
+		line-height: 1.1;
+		text-transform: uppercase;
 	}
 	h1:first-child {
   		border-bottom: 2px dotted #666;
@@ -39,7 +48,10 @@ import Stripe from "../../components/Stripe.svelte";
 
 <div class="wrapper">
 	<div class="content">
-        <h1>Contribute</h1>
+		<h1>Contribute</h1>
+		<h2>Web Pay</h2>
+		<a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=wWsk24ZWJSTZKsGd1RMKlg0BDvsSG3VIWQCPJNNxD8upkiY7JlDavDsozUE7KG0nFx2NSo8LdUKGuGuF396vbR-UdgzeRwEv0syt8O1i6mwiYnTg5dP4O6rpX5QvPEWlBhHDN59kLZFffwKfYERpQk81yWw4r0eFn7OjMBACFd4=&ver=3" target="_blank">Click Here</a>
+		<h2>Credit Card</h2>
         <Stripe/>
 	</div>
 </div>

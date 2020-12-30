@@ -140,14 +140,14 @@
 			<PostPreview category="Sermon" {posts}/>
 		</div>
 	</div>
-	
+	<!--
 	<div class="container">
 		<div class="content">
 			<h2>Latest News</h2>
 			<PostPreview category="Newsletter" {posts}/>
 		</div>
 	</div>
-
+	-->
 	<div class="container">
 		<div class="content">
 		  <h2>Newsletter</h2>
