@@ -120,11 +120,6 @@
 		clear: left;
 		font: 14px Helvetica,Arial,sans-serif;
 	}
-	/*
-	.container {
-		background: var(--grey);
-	}
-	*/
 	.content {
 		max-width: 76rem;
 		margin-left: auto;
@@ -132,33 +127,22 @@
 	}
 	form {
 		display: block;
+		margin: 50px auto;
+		width: 60%;
 		position: relative;
-		text-align: left;
-		padding: 10px 0 10px 3%;
+		overflow: hidden;
+		background-color: #F6F6F2;
+		border-radius: 5px;
+		padding: 50px;
+		background-color: #fff;
+		background-size: 100% 1em;
 	}	
-	.mc-field-group {
-		clear: left;
-		position: relative;
-		width: 96%;
-		padding-bottom: 3%;
-		min-height: 50px;
-	}
 	div.mce-responses {
-		float: left;
-		background-color: var(--red);
-		color: var(--white);
-		/* top: -1.4em; */
+		color: var(--primary);
 		padding: 0em .5em 0em .5em;
 		overflow: hidden;
 		width: 90%;
-		/* margin: 0 5%; */
 		clear: both;
-	}
-	.mc-field-group input {
-		display: block;
-		width: 100%;
-		padding: 8px 0;
-		text-indent: 2%;
 	}
 	input {
 		border: 1px solid #ABB0B2;
@@ -166,41 +150,51 @@
 		-moz-border-radius: 3px;
 		border-radius: 3px;
 	}
-	/*
-	input:invalid {
-		border: 1px solid red;
-	}
-	*/
-	/*
-	input:valid {
-		border: 1px solid black;
-	}
-	*/
-	.indicates-required {
-		text-align: right;
-		font-size: 11px;
-		margin-right: 4%;
-	}
-	.button {
-		clear: both;
-		background-color: var(--primary);
-		border: 0 none;
-		border-radius: 4px;
-		transition: all 0.23s ease-in-out 0s;
-		color: var(--white);
-		cursor: pointer;
-		display: inline-block;
-		font-size: 15px;
-		font-weight: normal;
-		height: 32px;
-		line-height: 32px;
-		margin: 0 5px 10px 0;
-		padding: 0 22px;
+	input[type="email"] {
+		margin: 0;
+		color: #999;
+		padding: 15px !important;
 		text-align: center;
-		text-decoration: none;
-		vertical-align: top;
-		white-space: nowrap;
-		width: auto;
+		width: 100% !important;
+		outline: none;
+		/* border: .5px dashed var(--gray); */
+		border-radius: 7px;
+		box-shadow: 0 0 1px var(--gray);
+		font-size: 14px;
+		background-color: #fff;
+	}
+	input[type="email"]::-webkit-input-placeholder {
+		color: var(--gray);
+	}
+	input[type="email"]:-moz-placeholder {
+		color: var(--gray);
+	}
+	input[type="email"]::-moz-placeholder {
+		color: var(--gray);
+	}
+	input[type="email"]:-ms-input-placeholder {
+		color: var(--gray);
+	}
+	input[type="submit"] {
+		margin: 0;
+		background-color: #83B3DB;
+		color: #fff;
+		padding: 16px !important;
+		text-align: center;
+		width: 100%;
+		outline: none;
+		border: 0;
+		text-transform: uppercase;
+		font-size: 13px;
+		cursor: pointer;
+		-webkit-transition: .1s all ease-in-out;
+		-moz-transition: .1s all ease-in-out;
+		-o-transition: .1s all ease-in-out;
+		transition: .1s all ease-in-out;
+	}
+	input[type="submit"]:hover {
+		background-color: #F29B91;
+		box-shadow: 0px 0px 0px 5px #F29B91;
 	}
 </style>
 
@@ -210,34 +204,26 @@
 
 <div class="wrapper">
 	<div class="content">
-	{#if !subscribed}
 	<h3>Stay current with all things happening at Grace Baptist Church of Blue Bell</h3>
 	<form 
 	  name="mc-embedded-subscribe-form"
 	  on:submit|preventDefault="{handleSubmit}"
 	>
-        <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
-        <div class="mc-field-group">
-          <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
-          <input on:input="{(e)=> showErr ? showErr=false : false}" on:click="{(e)=> showErr ? showErr=false : false}" bind:value={email} type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="you@email.com">
-        </div>
-        <div>
-			{#if showErr}
-			<div class="mce-responses">
-			  <span><p transition:fade>{`${msg}`}</p></span>
-			</div>
-			{/if}
-			<div id="captcha" class="g-recaptcha" data-sitekey="{recaptchaApi}" data-callback="onloadCallback"/>
-			<input type="submit" value="Subscribe" name="subscribe" class="button">
-		</div>
-		<!--
+		<input on:input="{(e)=> showErr ? showErr=false : false}" on:click="{(e)=> showErr ? showErr=false : false}" bind:value={email} type="email" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="please enter your email address">
+		<input type="submit" value="Subscribe" name="subscribe" class="button">
+		{#if false}
+		  <div id="captcha" class="g-recaptcha" data-sitekey="{recaptchaApi}" data-callback="onloadCallback"/>
+		{/if}
+		{#if subscribed}
+		  <div class="mce-responses">
+			<h3 transition:fade="{{duration: 2000, delay: 500}}">{email}, Thanks For Signing Up!</h3>
+		  </div>
+		{/if}
+		{#if showErr}
 		<div class="mce-responses">
-		  <div class="response {showErr || showSuccess ? ' show' : ''}">
+			<span><p transition:fade>{`${msg}`}</p></span>
 		</div>
-		-->
-	</form>
-	{:else}
-	  <h3 transition:fade="{{duration: 2000, delay: 500}}">{email}, Thanks For Signing Up!</h3>
-	{/if}
+		{/if}		
+	  </form>
   	</div>
 </div>
