@@ -16,8 +16,8 @@
 			publishedAt,
 			"categories": categories[]->{title},
 			"authors": authors[]{
-				author->{name}
-			}
+				"author": person->{name}
+			}  
 		}`;
 		const order = groq`|order(publishedAt desc)`
 		const groqQuery = filter + projection + order;
