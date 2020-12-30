@@ -71,8 +71,6 @@
     }
 </script>
 
-<h1> clientSecret Checkout </h1>
-
 <form on:submit|preventDefault={handlePayment}>
     <div class="form-row inline">
         <div class="col">
