@@ -2,12 +2,10 @@
 	import client from '../sanityClient';
 	import groq from 'groq';
 
-	export async function preload({ params, query }) {
-		const data = await this.fetch(
-      "https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
-	).then((x) => x.json());
-	console.log(data.id)
-
+	export async function preload({ params, query }) {		
+	// 	const data = await this.fetch(
+    //   `${apiEndpoint}mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell`
+	// ).then((x) => x.json());
 		const filter = groq`*[_type == "post" && defined(slug.current) && publishedAt < now()]`;
 		const projection = groq`{
 			slug,
@@ -18,8 +16,8 @@
 			publishedAt,
 			"categories": categories[]->{title},
 			"authors": authors[]{
-				author->{name}
-			}
+				"author": person->{name}
+			}  
 		}`;
 		const order = groq`|order(publishedAt desc)`
 		const groqQuery = filter + projection + order;
@@ -38,39 +36,12 @@
 	import { getContext } from 'svelte'
 	import PostPreview from "../components/PostPreview.svelte";
 	import Map from '../components/Map.svelte'
+	import Newsletter from '../components/Newsletter.svelte';
 
 	const siteSettings = getContext('siteSettings')
 	export let posts;
-
-	let email = "";
-	let fname = "";
-	let lname = "";
-
-	async function onClick(event) {
-		// const data = await fetch(
-      	// 	"https://dawn-tqa-staging.begin.app/mailchimp/list?name=Grace%20Baptist%20Church%20of%20Blue%20Bell"
-		// 	).then((x) => x.json());
-		// console.log(data.id)
-
-		let user = {
-			email: email,
-			fname: fname,
-			lname: lname
-		};
-		console.log(user)
-
-		response = await fetch("https://dawn-tqa-staging.begin.app/mailchimp/addListMember/c6ace2212d", {
-			method: 'POST',
-			headers: {
-				'access-control-allow-origin': '*',
-				'Content-Type': 'application/json;charset=utf-8'
-		},
-			body: JSON.stringify(user)
-		});
-		console.log(response)
-	}
 </script>
-	
+
 <style>
 	h1,
 	h2,
@@ -115,33 +86,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-	#mc_embed_signup {
-		background: #fff;
-		clear: left;
-		font: 14px Helvetica,Arial,sans-serif;
-	}
-	#mc_embed_signup form {
-		display: block;
-		position: relative;
-		text-align: left;
-		padding: 10px 0 10px 3%;
-	}	
-	#mc_embed_signup .mc-field-group {
-		clear: left;
-		position: relative;
-		width: 96%;
-		padding-bottom: 3%;
-		min-height: 50px;
-	}
-	#mc_embed_signup div#mce-responses {
-		float: left;
-		top: -1.4em;
-		padding: 0em .5em 0em .5em;
-		overflow: hidden;
-		width: 90%;
-		margin: 0 5%;
-		clear: both;
-	}	
 </style>
 
 <div class="wrapper">
@@ -196,12 +140,18 @@
 			<PostPreview category="Sermon" {posts}/>
 		</div>
 	</div>
-	
+	<!--
 	<div class="container">
 		<div class="content">
 			<h2>Latest News</h2>
 			<PostPreview category="Newsletter" {posts}/>
 		</div>
 	</div>
-
+	-->
+	<div class="container">
+		<div class="content">
+		  <h2>Newsletter</h2>
+		  <Newsletter/>
+		</div>
+	</div>
 </div>

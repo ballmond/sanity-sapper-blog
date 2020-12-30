@@ -51,7 +51,7 @@ import {
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem>
-            <NavLink href="#/">Contribute</NavLink>
+            <NavLink href="/pages/contribute">Contribute</NavLink>
           </NavItem>
       </Nav>
     </Collapse>

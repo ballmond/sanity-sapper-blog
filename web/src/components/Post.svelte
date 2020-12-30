@@ -16,6 +16,7 @@
     }
     
     import getYouTubeID from 'get-youtube-id';
+    import { cloudinaryId } from '../utils/util'
 
     function getYoutubeID(url) {
         return getYouTubeID(url);
@@ -75,7 +76,7 @@
             <div class="media">
                 <ul>
                     {#if videoUrl}
-                        <li><a href="{videoUrl}" target="_blank">Watch</a></li>
+                        <a href="{videoUrl}" target="_blank"><img src="https://res.cloudinary.com/{cloudinaryId}/image/youtube/w_200,h_110/{getYoutubeID(videoUrl)}.jpg" alt="image preview"/></a>
                     {/if}
                     {#if audioUrl}
                         <p><a href="{audioUrl}" target="_blank">Listen</a></p>
