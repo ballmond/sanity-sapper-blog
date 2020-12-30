@@ -14,6 +14,7 @@
 
         var elements = await stripe.elements();
         card = await elements.create('card');
+        
         // mount the card to the dom
         card.mount("#card-element");
 
